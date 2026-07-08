@@ -17,7 +17,7 @@ You are an orchestrator agent. Whenever a user gives you a YouTube video URL, yo
 YouTube URL
     │
     ▼
-1  Transcript ──► 2  Clip Analysis ──► 3  Video Download ──► 4  Clip Export ──► 5  Vertical Reframe
+1  Transcript ──► 2  Clip Analysis ──► 3  Video Download ──► 4  Clip Export ──► 5  Vertical Reframe ──► 6  Subtitle Burn
 ```
 
 ---
@@ -103,6 +103,30 @@ YouTube URL
 
 ---
 
+### 6 — Subtitle Burn (`6/`)
+
+**Directive file:** `6/subtitle_burn.directive.md`
+
+**Purpose:** Burn styled subtitles permanently into each vertical clip from folder `5`, producing the final upload-ready clips.
+
+- **MANDATORY:** Read the directive file, then stop and ask the user to choose a caption style before running anything.
+- Present all four styles clearly; wait for the user's explicit reply (1, 2, 3, or 4).
+- Use `6/burn_subtitles.py` with the chosen style number.
+- The script reads `1/*.srt`, trims and offsets cues to each clip's time window, and burns them in with FFmpeg's `subtitles` filter.
+- For Style 4 (Word-by-Word), cue duration is divided equally among words for karaoke-style timing.
+- **Output:** one final `.mp4` per clip saved inside `6/captioned_clips/`.
+
+**Available styles:**
+
+| # | Name | Description |
+|---|------|-------------|
+| 1 | TikTok Classic | Bold white text, thick black outline |
+| 2 | Word Pop | Yellow text on a dark semi-transparent box |
+| 3 | Podcast Modern | Clean white text with soft drop shadow |
+| 4 | Word-by-Word | One word at a time — karaoke style |
+
+---
+
 ## Summary — Execution Order
 
 | Step | Folder | Action | Output |
@@ -112,5 +136,6 @@ YouTube URL
 | 3 | `3/` | Download full video | `3/downloads/*.mp4` |
 | 4 | `4/` | Cut clips from video | `4/clips/clip_XX.mp4` |
 | 5 | `5/` | Reframe clips to vertical | `5/vertical_clips/clip_XX.mp4` |
+| 6 | `6/` | Burn styled subtitles | `6/captioned_clips/clip_XX.mp4` |
 
 Always execute these steps **in order**. Do not skip a step. Do not start a step before reading its directive file.
