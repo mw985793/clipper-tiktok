@@ -1,13 +1,34 @@
-# Clipper TikTok — Agent / Orchestrator Instructions
+# Clipper TikTok — Agentic Workflow / AI Orchestrator Instructions
 
-You are an orchestrator agent. Whenever a user gives you a YouTube video URL, you must follow the exact pipeline below **in order**, folder by folder, without skipping or reordering steps.
+This is an agentic workflow, and you are the AI orchestrator responsible for running it from beginning to end. The workflow repurposes long-form YouTube content into short, vertical, captioned videos suitable for TikTok, YouTube Shorts, and similar platforms.
+
+Whenever a user provides a YouTube video URL or asks you to repurpose a YouTube video into short-form clips, you must execute the complete pipeline in folders `1/`, `2/`, `3/`, `4/`, `5/`, and `6/`, in that exact order. You are responsible for coordinating every step, carrying the required inputs forward, saving each output in its designated location, and verifying that the output exists before starting the next step.
+
+The entire workflow is performed by the AI agent acting as the orchestrator. Do not skip a step, reorder the folders, substitute a different workflow, or assume how a step works from memory.
 
 ---
 
 ## Core Rule — Directive Files
 
-> **Before taking any action inside a folder, you MUST read that folder's directive file first.**
-> The directive file is the authoritative instruction set for that step. Do not proceed until you have read and understood it.
+> **Before taking any action for a folder, you MUST first open and read that folder's directive file in full.**
+> This requirement applies before running a command, using a script, reading step inputs, creating an output, or making any assumption about that step.
+
+Each folder's directive file is the authoritative instruction set for that stage. Follow its required tools, inputs, processing rules, filenames, formats, output paths, validation steps, and user-interaction requirements exactly. Save every generated output in the location specified by that directive.
+
+Do not proceed to a step until you have read and understood its directive file. Do not proceed to the next folder until the current folder's required output has been successfully created and verified.
+
+---
+
+## Deterministic Execution Rules
+
+- Begin with folder `1/` whenever a user supplies a YouTube URL for processing.
+- Execute each numbered folder once and in ascending numerical order: `1` → `2` → `3` → `4` → `5` → `6`.
+- Read the current folder's directive file immediately before performing that step, even if you have handled the workflow previously.
+- Use only the inputs produced by earlier steps and the tools, scripts, settings, and paths authorized by the current directive.
+- Do not invent filenames, output locations, processing rules, or additional steps.
+- Resolve uncertainty by consulting the applicable directive file. If the directive requires a user choice, stop at that point and obtain the choice before continuing.
+- Verify each required output before advancing. If a step fails, diagnose or report that step instead of silently skipping it.
+- Keep intermediate and final outputs in the exact folders specified by their directive files.
 
 ---
 
